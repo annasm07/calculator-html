@@ -26,12 +26,14 @@ for (const button of buttons) {
 
 function clearScreen(){
     firstNumber="";
-    secondNumber="";
-    operator="";
-    previousValue="";
-    currentValue="";
+    showResults=false;
     finalResult="";
-    numbersForCalculations=[];
+    operator="";
+    valueClicked=0;
+    currentValue="";
+    previousValue="";
+    pressedEqual=false;
+    numbersForCalculations= [];
     screenUpdate();
 }
 
