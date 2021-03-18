@@ -1,18 +1,18 @@
 
-let firstNumber="";
-let showResults=false;
-let finalResult="";
-let operator="";
-let valueClicked=0;
-let currentValue;
-let previousValue;
-let pressedEqual=false;
-let numbersForCalculations= [];
+let firstNumber="";//number constantly updated when pressing buttons
+let showResults=false; 
+let finalResult=""; // number updated when making calculations
+let operator=""; //operator saved for calculations
+let valueClicked=0; // last button clicked
+let currentValue; //Current value for screen
+let previousValue; // Value used previously for screen
+let pressedEqual=false; // Boolean changed when the key "=" is pressed
+let numbersForCalculations= []; // Array to save numbers for calculations using .reduce()
 const screenPrevious =document.querySelector('.previous-numbers');
 const screenCurrent = document.querySelector('.written-numbers');
 const buttons = document.getElementsByTagName('button');
 
-for (const button of buttons) {
+for (const button of buttons) { //event listener for when buttons are pressed
     button.addEventListener('click', function(event) {
         const buttonClicked =event.target;
         valueClicked= button.innerHTML;
@@ -24,7 +24,7 @@ for (const button of buttons) {
     });
 }
 
-function clearScreen(){
+function clearScreen(){ //gets the screen clear & all the values are reset 
     firstNumber="";
     showResults=false;
     finalResult="";
@@ -37,14 +37,13 @@ function clearScreen(){
     screenUpdate();
 }
 
-function screenUpdate(){
+function screenUpdate(){ //function that updates the screen for both current and pprevious
     screenPrevious.textContent=previousValue;
     screenCurrent.textContent=currentValue;
 }
 
-function deleteOneValue(){
+function deleteOneValue(){ //function that delets the last value from the current number "currentValue"
     if (firstNumber===""){
-        console.log(finalResult);
         finalResult=finalResult.toString().slice(0,-1);
         currentValue=parseFloat(finalResult);
     }
@@ -52,18 +51,16 @@ function deleteOneValue(){
     firstNumber=firstNumber.slice(0,-1);
     currentValue=parseFloat(firstNumber);
     }
-    console.log(numbersForCalculations);
-    console.log(firstNumber);
     screenUpdate();
 }
 
-function addValueToScreen(){
+function addValueToScreen(){ //reassign value and print on screen every time a button is clicked 
     firstNumber+=valueClicked;
     currentValue=parseFloat(firstNumber);
     screenUpdate();
 }
 
-function operatorClick(){
+function operatorClick(){ // assigns the value operator, resets current value, & calls calculations() & screenUpdate()
     if (pressedEqual){
         firstNumber=finalResult;
         pressedEqual=false;
@@ -83,7 +80,7 @@ function operatorClick(){
     screenUpdate();
 }
 
-function pressEqual(){
+function pressEqual(){ //"=" is pressed, call calculations() & screenUpdate()
     numbersForCalculations.push(parseFloat(firstNumber));
     previousValue=firstNumber;
     makeCalculations();
@@ -92,10 +89,10 @@ function pressEqual(){
     pressedEqual=true;
         previousValue=currentValue;
         firstNumber="";
-        console.log(currentValue);
+        
 }
 
-function makeCalculations(){
+function makeCalculations(){ //function that makes the calculations
     if (numbersForCalculations.length>1){
         switch(operator){
             case 'x':
@@ -119,7 +116,7 @@ function makeCalculations(){
 
         }
         numbersForCalculations=[finalResult];
-        console.log(finalResult);
+        
     }
     showResults=true;    
 }
